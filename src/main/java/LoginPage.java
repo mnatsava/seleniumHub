@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
 
     private WebDriver driver;
 
@@ -15,8 +15,13 @@ public class LoginPage {
     private By avatarLocator = By.cssSelector((".pa-uiLib-headerProfileInfo-profileInfo"));
 
 
-    public LoginPage (WebDriver driver) {
-        this.driver = driver;
+    public LoginPage () {
+        open("https://picsart.com/");
+    }
+
+    @Override
+    public String getUrl() {
+        return BASE_URL;
     }
 
     public void clickLoginButton() {
@@ -45,5 +50,11 @@ public class LoginPage {
         WebElement avatar = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfElementLocated(avatarLocator));
         return avatar.isDisplayed();
+    }
+
+    public boolean isUserLoggedIn() {
+        WebElement avatarIcon = new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOfElementLocated((avatarLocator)));
+        return avatarIcon.isDisplayed();
     }
 }
