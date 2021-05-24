@@ -1,19 +1,19 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * @author Sargis Sargsyan on 5/12/21
+ * @project picsart-internal-training
+ */
 public class LoginPage extends BasePage{
 
-    private WebDriver driver;
-
-    private By usernameLocator = By.name("username");
-    private By passwordLocator = By.name("password");
-    private By loginButtonLocator = By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']");
-    private By signInButtonLocator = By.cssSelector(".pa-uiLib-authentication-btn.primary");
-    private By avatarLocator = By.cssSelector((".pa-uiLib-headerProfileInfo-profileInfo"));
-
+    private final By usernameFieldLocation = By.name("username");
+    private final By passwordFieldLocation = By.name("password");
+    private final By loginButtonLocation = By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']");
+    private final By signInButtonLocation = By.cssSelector(".pa-uiLib-authentication-btn.primary");
+    private final By avatarLocation = By.cssSelector(".pa-uiLib-headerProfileInfo-avatar");
 
     public LoginPage () {
         open("https://picsart.com/");
@@ -25,36 +25,30 @@ public class LoginPage extends BasePage{
     }
 
     public void clickLoginButton() {
-        WebElement loginButton = driver.findElement(loginButtonLocator);
-        loginButton.click();
-        new WebDriverWait(driver, 8)
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.name("username")));
+        click(loginButtonLocation);
+        new WebDriverWait(driver, 2)
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(usernameFieldLocation));
     }
 
     public void typeUsername(String username) {
-        WebElement usernameField = driver.findElement(usernameLocator);
-        usernameField.sendKeys(username);
+        type(usernameFieldLocation, username);
     }
 
     public void typePassword(String password) {
-        WebElement usernameField = driver.findElement(passwordLocator);
-        usernameField.sendKeys(password);
+        type(passwordFieldLocation,password);
     }
 
     public void clickSignInButton() {
-        WebElement signInButton = driver.findElement(signInButtonLocator);
-        signInButton.click();
+        click(signInButtonLocation);
     }
 
-    public boolean isLoggedIn() {
-        WebElement avatar = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfElementLocated(avatarLocator));
-        return avatar.isDisplayed();
+    public boolean isAvatarDisplayed() {
+        return find(avatarLocation).isDisplayed();
     }
 
     public boolean isUserLoggedIn() {
         WebElement avatarIcon = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfElementLocated((avatarLocator)));
+                .until(ExpectedConditions.visibilityOfElementLocated((avatarLocation)));
         return avatarIcon.isDisplayed();
     }
 }

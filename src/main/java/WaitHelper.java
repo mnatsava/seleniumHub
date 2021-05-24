@@ -4,8 +4,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static SetUp.DriverSetup.getDriver;
+import static setup.DriverSetup.getDriver;
 
+/**
+ * @author Sargis Sargsyan on 5/17/21
+ * @project picsart-internal-training
+ */
 public class WaitHelper {
     private final static int DEFAULT_TIMEOUT = 10;
 
