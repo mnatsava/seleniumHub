@@ -18,7 +18,7 @@ public class BrowserTest extends TestBase {
             assertFalse(imageBrowserPage.isImageLiked(), "Image isn't liked");
         } else {
             imageBrowserPage.clickOnLikeIcon();
-            assertTrue(imageBrowserPage.isImageLiked(), "Image wasn't liked");
+            assertTrue(imageBrowserPage.isImageLiked(), "Image isn't liked");
             imageBrowserPage.clickOnLikeIcon();
             assertFalse(imageBrowserPage.isImageLiked(), "Image isn't unliked");
         }
