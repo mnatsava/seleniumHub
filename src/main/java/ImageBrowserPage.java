@@ -17,21 +17,11 @@ public class ImageBrowserPage extends BasePage {
     }
 
     public void clickOnLikeIcon() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         WaitHelper.getInstance().waitForElementToBeDisplayed(likeIconLocation);
         click(likeIconLocation);
     }
 
     public boolean isImageLiked() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return find(likeIconLocation).getAttribute("class").contains("active");
     }
 }
