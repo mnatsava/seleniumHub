@@ -23,6 +23,4 @@ public class BrowserTest extends TestBase {
             assertFalse(imageBrowserPage.isImageLiked(), "Image isn't unliked");
         }
     }
-
-
 }
