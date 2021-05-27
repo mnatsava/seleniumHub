@@ -21,6 +21,11 @@ public class ImageBrowserPage extends BasePage {
         click(likeIconLocation);
     }
 
+    public boolean isHashtagByNameVisible(String hashtagName) {
+        //TODO need to implement
+        return true;
+    }
+
     public boolean isImageLiked() {
         return find(likeIconLocation).getAttribute("class").contains("active");
     }
