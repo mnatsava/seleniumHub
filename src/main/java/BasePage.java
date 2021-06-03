@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -8,11 +9,9 @@ import java.util.List;
 
 import static setup.DriverSetup.getDriver;
 
-/**
- * @author Sargis Sargsyan on 5/13/21
- * @project picsart-internal-training
- */
 public abstract class BasePage {
+
+    private static Logger LOGGER = Logger.getLogger(BasePage.class);
     protected WebDriver driver;
     public static final String BASE_URL="http://picsart.com";
 
@@ -23,16 +22,17 @@ public abstract class BasePage {
     public abstract String getUrl();
 
     public void open(String url) {
-        System.out.println("Opening url -> " + url);
+        LOGGER.info("Opening url -> " + url);
         driver.get(url);
     }
 
     public WebElement find(By location) {
-        System.out.println("Finding element -> " + location.toString());
+        LOGGER.info("Finding element -> " + location.toString());
         return driver.findElement(location);
     }
+
     public List<WebElement> findAll(By location) {
-        System.out.println("Finding elements -> " + location.toString());
+        LOGGER.info("Finding elements -> " + location.toString());
         return driver.findElements(location);
     }
 
@@ -41,12 +41,12 @@ public abstract class BasePage {
     }
 
     public void type(WebElement element, String text) {
-        System.out.println("Typing " + text +" to field  -> " + element.toString());
+        LOGGER.info("Typing " + text +" to field  -> " + element.toString());
         element.sendKeys(text);
     }
 
     public void click(By location) {
-        System.out.println("Clicking on element -> " + location.toString());
+        LOGGER.info("Clicking on element -> " + location.toString());
         click(find(location));
     }
 
@@ -59,7 +59,6 @@ public abstract class BasePage {
         getDriver().switchTo().window(windowHandlers.get(tabIndex));
     }
 
-
     public boolean isDisplayed(WebElement element) {
         try {
             return element.isDisplayed();
@@ -67,6 +66,7 @@ public abstract class BasePage {
             return false;
         }
     }
+
     public boolean isDisplayed(By location) {
         try {
             return find(location).isDisplayed();

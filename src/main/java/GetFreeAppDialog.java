@@ -1,11 +1,17 @@
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-/**
- * @author Sargis Sargsyan on 5/20/21
- * @project picsart-internal-training
- */
-public class GetFreeAppDialog extends BasePage{
-    private By qrCode = By.cssSelector(".qrcode");
+import static setup.DriverSetup.getDriver;
+
+public class GetFreeAppDialog extends BasePage {
+
+    @FindBy(css = ".qrcode")
+    private WebElement qrCode;
+
+    public GetFreeAppDialog() {
+        PageFactory.initElements(getDriver(),this);
+    }
 
     @Override
     public String getUrl() {
@@ -15,6 +21,5 @@ public class GetFreeAppDialog extends BasePage{
     public boolean isQrVisible() {
         return isDisplayed(qrCode);
     }
-
 
 }

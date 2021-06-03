@@ -6,10 +6,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static setup.DriverSetup.getDriver;
 
-/**
- * @author Sargis Sargsyan on 5/17/21
- * @project picsart-internal-training
- */
 public class WaitHelper {
     private final static int DEFAULT_TIMEOUT = 10;
 
@@ -26,6 +22,17 @@ public class WaitHelper {
         } catch (WebDriverException e) {
             throw new Error ("Element with provided locator was not displayed "
                     + location.toString() );
+        }
+    }
+
+    public WaitHelper waitForElementToBeDisplayed(WebElement element) {
+        try {
+            new WebDriverWait(getDriver(), DEFAULT_TIMEOUT)
+                    .until(ExpectedConditions.visibilityOf((element)));
+            return this;
+        } catch (WebDriverException e) {
+            throw new Error ("Element with provided locator was not displayed "
+                    + element.toString() );
         }
     }
     public WaitHelper waitForElementToBeInvisible(WebElement element) {

@@ -1,27 +1,28 @@
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-/**
- * @author Sargis Sargsyan on 5/20/21
- * @project picsart-internal-training
- */
+import static setup.DriverSetup.getDriver;
+
 public class ChallengePage extends BasePage {
-    private By participateButtonLocation = By.cssSelector(".c-get-the-app-popup.primary-big-btn");
+
+    @FindBy(css = ".c-get-the-app-popup.primary-big-btn")
+    private WebElement participateButtonLocation;
+
+    public ChallengePage(String id) {
+        open(getUrl() + "/" + id);
+        PageFactory.initElements(getDriver(), this);
+    }
+
     @Override
     public String getUrl() {
         return BASE_URL + "/challenge";
     }
 
-    public ChallengePage(){
-
-    }
-     public ChallengePage(String id) {
-        open(getUrl() + "/" + id);
-
-    }
-
-    public void clickParticipate() {
+    public GetFreeAppDialog clickParticipate() {
         WaitHelper.getInstance().waitForElementToBeDisplayed(participateButtonLocation);
-        find(participateButtonLocation).click();
+        click(participateButtonLocation);
+        return new GetFreeAppDialog();
     }
 
 }

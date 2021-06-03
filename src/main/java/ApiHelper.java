@@ -6,10 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-/**
- * @author Sargis Sargsyan on 5/24/21
- * @project picsart-internal-training
- */
 public class ApiHelper {
     private static String generatedText = UUID.randomUUID().toString();
 

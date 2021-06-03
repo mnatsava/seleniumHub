@@ -1,21 +1,36 @@
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-/**
- * @author Sargis Sargsyan on 5/17/21
- * @project picsart-internal-training
- */
+import java.util.List;
+
+import static setup.DriverSetup.getDriver;
+
 public class EditorPage extends BasePage {
 
-    private static By instagramStoryLocation = By.cssSelector("[data-test='insta-story']");
-    private static By editorItemLocation = By.cssSelector("[class*='customSizeContainer']");
-    private static By fitIconLocation = By.cssSelector("#background-category");
+    @FindBy(css = "[data-test='insta-story']")
+    private WebElement instagramStory;
+
+    @FindBy(css = "[class*='customSizeContainer']")
+    private List<WebElement> editorItemLocationList;
+
+    @FindBy(css = "[class*='customSizeContainer']")
+    private WebElement editorItem;
+
+    @FindBy(css = "#background-category")
+    private WebElement fitIcon;
+
+    @FindBy(css = "[class*='customSizeContainer']")
+    private List<WebElement> itemsInSideBarList;
+
+    @FindBy(css = "[class*='customSizeContainer']")
+    private WebElement itemsInSideBar;
 
 
     public EditorPage() {
         open(getUrl());
+        PageFactory.initElements(getDriver(),this);
     }
 
     @Override
@@ -24,18 +39,29 @@ public class EditorPage extends BasePage {
     }
 
     public int getItemsCount() {
-        WaitHelper.getInstance().waitForElementToBeDisplayed(editorItemLocation);
-        return findAll(editorItemLocation).size();
+        WaitHelper.getInstance().waitForElementToBeDisplayed(editorItem);
+        return editorItemLocationList.size();
 
+    }
+
+    public void clickOnFitIcon() {
+        click(fitIcon);
     }
 
     public void clickInstagramStory() {
-        WaitHelper.getInstance().waitForElementToBeDisplayed(instagramStoryLocation);
+        WaitHelper.getInstance().waitForElementToBeDisplayed(instagramStory);
         Actions actions = new Actions(driver);
-        actions.moveToElement(find(instagramStoryLocation)).click().build().perform();
+        actions.moveToElement(instagramStory).click().build().perform();
     }
+
+    public int getCountOfItemsInSideBar() {
+        WaitHelper.getInstance().waitForElementToBeDisplayed(itemsInSideBar);
+        return itemsInSideBarList.size();
+    }
+
     public void clickFitIcon() {
-        WaitHelper.getInstance().waitForElementToBeDisplayed(fitIconLocation);
-        click(fitIconLocation);
+        WaitHelper.getInstance().waitForElementToBeDisplayed(fitIcon);
+        click(fitIcon);
     }
+
 }

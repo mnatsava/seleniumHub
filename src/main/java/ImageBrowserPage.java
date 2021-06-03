@@ -1,14 +1,22 @@
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import static setup.DriverSetup.getDriver;
 
 public class ImageBrowserPage extends BasePage {
 
-    private final By likeIconLocation = By.cssSelector(".actions-section .notifier-hover-toggle .like");
+    @FindBy(css = ".actions-section .notifier-hover-toggle .like")
+    private WebElement likeIconLocation;
 
-    public ImageBrowserPage () {
-    }
+//
+//    public ImageBrowserPage () {
+//        PageFactory.initElements(getDriver(), ImageBrowserPage.class);
+//    }
 
     public ImageBrowserPage (String imageID) {
-         open(BASE_URL + "/i/" + imageID);
+        open(BASE_URL + "/i/" + imageID);
+        PageFactory.initElements(getDriver(),this);
     }
 
     @Override
@@ -27,6 +35,6 @@ public class ImageBrowserPage extends BasePage {
     }
 
     public boolean isImageLiked() {
-        return find(likeIconLocation).getAttribute("class").contains("active");
+        return likeIconLocation.getAttribute("class").contains("active");
     }
 }

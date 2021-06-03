@@ -7,10 +7,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Sargis Sargsyan on 5/13/21
- * @project picsart-internal-training
- */
 public class DriverSetup {
     public static WebDriver driver;
     private static ChromeOptions options;

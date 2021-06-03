@@ -1,22 +1,32 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-/**
- * @author Sargis Sargsyan on 5/12/21
- * @project picsart-internal-training
- */
-public class LoginPage extends BasePage{
+import static setup.DriverSetup.getDriver;
 
-    private final By usernameFieldLocation = By.name("username");
-    private final By passwordFieldLocation = By.name("password");
-    private final By loginButtonLocation = By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']");
-    private final By signInButtonLocation = By.cssSelector(".pa-uiLib-authentication-btn.primary");
-    private final By avatarLocation = By.cssSelector(".pa-uiLib-headerProfileInfo-avatar");
+public class LoginPage extends BasePage {
+
+    @FindBy(name = "username")
+    private WebElement usernameFieldLocation;
+
+    @FindBy(name = "password")
+    private WebElement passwordFieldLocation;
+
+    @FindBy(css = "[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']")
+    private WebElement loginButtonLocation;
+
+    @FindBy(css = ".pa-uiLib-authentication-btn.primary")
+    private WebElement signInButtonLocation;
+
+    @FindBy(css = ".pa-uiLib-headerProfileInfo-avatar")
+    private WebElement avatarLocation;
+
 
     public LoginPage () {
-        open("https://picsart.com/");
+        open(BASE_URL);
+        PageFactory.initElements(getDriver(),this);
     }
 
     @Override
@@ -27,7 +37,7 @@ public class LoginPage extends BasePage{
     public void clickLoginButton() {
         click(loginButtonLocation);
         new WebDriverWait(driver, 2)
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(usernameFieldLocation));
+                .until(ExpectedConditions.visibilityOf(usernameFieldLocation));
     }
 
     public void typeUsername(String username) {
@@ -43,12 +53,12 @@ public class LoginPage extends BasePage{
     }
 
     public boolean isAvatarDisplayed() {
-        return find(avatarLocation).isDisplayed();
+        return isDisplayed(avatarLocation);
     }
 
     public boolean isUserLoggedIn() {
         WebElement avatarIcon = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfElementLocated((avatarLocation)));
+                .until(ExpectedConditions.visibilityOf((avatarLocation)));
         return avatarIcon.isDisplayed();
     }
 }
